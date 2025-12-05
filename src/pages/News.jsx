@@ -10,7 +10,7 @@ import { CardMedia } from "@mui/material";
 import { useEffect, } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNews, setCategory } from "../features/newsSlice";
+import { fetchNews } from "../features/newsSlice";
 
 import loadingGif from "../assets/loading.gif";
 import Header from "../components/Header";
