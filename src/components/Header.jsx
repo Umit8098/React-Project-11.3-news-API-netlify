@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Box, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, FormControl, InputLabel, Select, MenuItem, TextField, Button, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setSearch } from "../features/newsSlice";
 
@@ -17,16 +17,11 @@ const Header = () => {
 
   // 🔥 Search input için local state
   const [localSearch, setLocalSearch] = useState(""); // 🔥 local state
+  const [openSearch, setOpenSearch] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
 
 
   return (
-    <Box sx={{
-      overflowX: "auto",
-      whiteSpace: "nowrap",
-      display: "flex",
-      alignItems: "center",
-      gap: 2
-    }}>
       <AppBar 
           position="sticky" 
           color="default" 
@@ -34,76 +29,130 @@ const Header = () => {
       >
         <Toolbar sx={{ 
           display: "flex",
-          flexWrap: { xs: "wrap", md: "nowrap" }, // 🔥 xs-sm: 2 satır, md+: tek satır
-          gap: 1.5, 
-          minHeight: 56, // 🔥 Default MUI height
-          alignItems: "center" }}
-          >
+          justifyContent: "space-between",
+          alignItems: "center"
+          }}
+        >
             {/* Logo */}
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
               NEWS
             </Typography>
 
-            {/* Category +Search alanlarını grupla */}
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",              // 🔥 Küçük ekranda otomatik alt satır
-                gap: 1.5,
-                flex: 1,
-                alignItems: "center",
-              }}
-            >
-              {/* Category Select */}
-              <FormControl sx={{ minWidth: { xs: 120, sm: 200 } }}>
+            {/* Mobil */}
+            <Box sx={{ display: { xs: "flex", sm: "none" }, gap: 1 }}>
+              <Button 
+                variant="contained" 
+                size="small"
+                onClick={() => setOpenCategory(true)}
+              >
+                Kategori
+              </Button>
+            
+              <Button 
+                variant="contained" 
+                size="small"
+                onClick={() => setOpenSearch(true)}
+              >
+                Ara
+              </Button>
+            </Box>
+
+            {/* Desktop */}
+            <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 2, flex: 1, ml: 3 }}>
+              
+              <FormControl sx={{ width: 200 }}>
                 <InputLabel id="category-label">Kategori</InputLabel>
                 <Select
                   labelId="category-label"
                   label="Kategori"
                   value={category}
-                  // onChange={(e) => dispatch(setCategory(e.target.value))}
                   onChange={(e) => {
-                    const newCategory = e.target.value;
-                    dispatch(setCategory(newCategory));
-                    dispatch(setSearch(""));        // 🔥 category değişince search sıfırla
-                    setLocalSearch("");             // 🔥 input alanını da temizle
+                    dispatch(setCategory(e.target.value));
+                    dispatch(setSearch(""));
+                    setLocalSearch("");
                   }}
                 >
-                  {categories.map((ctg) => (
+                  {categories.map(ctg => (
                     <MenuItem key={ctg} value={ctg}>{ctg}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
-
-              {/* Search */}
+                
               <TextField
                 label="Ara..."
                 variant="outlined"
                 size="small"
-                // value={search}
                 value={localSearch}
-                onChange={(e) => setLocalSearch(e.target.value)} // local state kaydediyoruz
+                onChange={(e) => setLocalSearch(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    dispatch(setSearch(localSearch)); // Enter’a basınca Redux state güncellensin
+                    dispatch(setSearch(localSearch));
                   }
                 }}
-                sx={{ minWidth: { xs: 120, sm: 200 } }}
+                sx={{ width: 200 }}
               />
             </Box>
 
-              {/* Tema Değiştirme Butonu */}
-              <IconButton 
-                  color="inherit" 
-                  sx={{ ml: "auto"}} //🔥 burası en sağa yasladı
-                  onClick={() => dispatch(toggleTheme())}
-              >
-                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-              </IconButton>
 
+            {/* Tema */}
+            <IconButton onClick={() => dispatch(toggleTheme())}>
+              {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
         </Toolbar>
+
+        {/* CATEGORY MODAL */}
+        <Modal open={openCategory} onClose={() => setOpenCategory(false)}>
+          <Box sx={{
+            position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 260, bgcolor: "background.paper",
+            p: 3, borderRadius: 2
+          }}>
+            <Typography variant="h6" mb={2}>Kategori Seç</Typography>
+
+            <FormControl fullWidth>
+              <Select
+                value={category}
+                onChange={(e) => {
+                  dispatch(setCategory(e.target.value));
+                  dispatch(setSearch(""));
+                  setOpenCategory(false);
+                }}
+              >
+                {categories.map(ctg => (
+                  <MenuItem key={ctg} value={ctg}>{ctg}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Modal>
+
+        {/* SEARCH MODAL */}
+        <Modal open={openSearch} onClose={() => setOpenSearch(false)}>
+          <Box sx={{
+            position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 260, bgcolor: "background.paper",
+            p: 3, borderRadius: 2
+          }}>
+            <Typography variant="h6" mb={2}>Haber Ara</Typography>
+
+            <TextField
+              fullWidth
+              label="Kelime..."
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  dispatch(setSearch(localSearch));
+                  setOpenSearch(false);
+                }
+              }}
+            />
+          </Box>
+        </Modal>
+
       </AppBar>
-    </Box>
   );
 };
 
