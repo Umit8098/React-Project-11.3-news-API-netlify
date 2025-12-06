@@ -103,7 +103,7 @@ const Header = () => {
         {/* CATEGORY MODAL */}
         <Modal open={openCategory} onClose={() => setOpenCategory(false)}>
           <Box sx={{
-            position: "absolute", top: "50%", left: "50%",
+            position: "absolute", top: "23%", left: "50%",
             transform: "translate(-50%, -50%)",
             width: 260, bgcolor: "background.paper",
             p: 3, borderRadius: 2
@@ -130,7 +130,7 @@ const Header = () => {
         {/* SEARCH MODAL */}
         <Modal open={openSearch} onClose={() => setOpenSearch(false)}>
           <Box sx={{
-            position: "absolute", top: "50%", left: "50%",
+            position: "absolute", top: "30%", left: "50%",
             transform: "translate(-50%, -50%)",
             width: 260, bgcolor: "background.paper",
             p: 3, borderRadius: 2
@@ -145,6 +145,8 @@ const Header = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   dispatch(setSearch(localSearch));
+                  // 🔥 iOS SE fix
+                  e.target.blur();  
                   setOpenSearch(false);
                 }
               }}
