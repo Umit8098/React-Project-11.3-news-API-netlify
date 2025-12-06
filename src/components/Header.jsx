@@ -146,7 +146,8 @@ const Header = () => {
                 if (e.key === "Enter") {
                   dispatch(setSearch(localSearch));
                   // 🔥 iOS SE fix
-                  e.target.blur();  
+                  e.target.blur();
+                  requestAnimationFrame(() => setOpenSearch(false));  
                   setOpenSearch(false);
                 }
               }}
