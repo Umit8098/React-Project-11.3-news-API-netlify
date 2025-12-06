@@ -147,8 +147,7 @@ const Header = () => {
                   dispatch(setSearch(localSearch));
                   // 🔥 iOS SE fix
                   e.target.blur();
-                  requestAnimationFrame(() => setOpenSearch(false));  
-                  setOpenSearch(false);
+                  requestAnimationFrame(() => setOpenSearch(false));
                 }
               }}
             />
