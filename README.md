@@ -13,7 +13,7 @@
 </div>
 
 <p align="center">
-  <img src="./src/assets/news-app.gif" alt="News App" width="800"/>
+  <img src="./src/assets/news-app.gif" alt="News App" width="500"/>
 </p>
 
 ## 📚 Table of Contents
