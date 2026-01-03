@@ -175,7 +175,7 @@ src/
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/Umit8098/React-Firebase-News-App.git
+$ git clone https://github.com/Umit8098/React-Project-11.3-news-API-netlify.git
 
 # Navigate into the project folder
 $ cd React-Firebase-News-App
@@ -188,7 +188,7 @@ npm run dev
 yarn
 yarn dev
 ```
-🔸 Then open http://localhost:3000 to view it in your browser.
+🔸 Then open http://localhost:5173 to view it in your browser.
 
 ---
 
