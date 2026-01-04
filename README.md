@@ -1,4 +1,19 @@
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React%20(Vite)-blue?logo=react" />
+  <img src="https://img.shields.io/badge/Auth-Firebase-orange?logo=firebase" />
+  <img src="https://img.shields.io/badge/State-Redux%20Toolkit-purple" />
+  <img src="https://img.shields.io/badge/API-NewsAPI-lightgrey" />
+  <img src="https://img.shields.io/badge/Serverless-Netlify%20Functions-success?logo=netlify" />
+  <img src="https://img.shields.io/badge/Deployment-Netlify-00C7B7?logo=netlify" />
+</p>
+
 <h1 align="center">📰 React Firebase News App</h1>
+
+<p align="center">
+Production-ready React news app with Firebase Auth, Redux Toolkit and secure Netlify Functions API layer.
+</p>
+
 
 <div align="center">
   <h3>
@@ -16,9 +31,8 @@
   <img src="./src/assets/news-app.gif" alt="News App" width="700"/>
 </p>
 
-## 📚 Table of Contents
+## 📚 Navigation
 
-- [📚 Table of Contents](#-table-of-contents)
 - [✨ Overview](#-overview)
 - [📖 Description](#-description)
 - [🚀 Features](#-features)
